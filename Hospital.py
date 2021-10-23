@@ -2,6 +2,97 @@ import subprocess as sp
 import pymysql
 import pymysql.cursors
 
+def Aggre_1():
+    return
+def Aggre_2():
+    return
+def Selec_1():
+    return
+def Selec_2():
+    return
+def Proj_1():
+    return
+def Proj_2():
+    return
+def Search_1():
+    return
+def Search_2():
+    return
+def Analysis_1():
+    return
+def Analysis_2():
+    return
+
+
+def Aggre():
+    print("CHOOSE AN OPTION:(print the corresponding number)\n")
+    print("1.Avg bill cost for month")
+    print("2.Dept with max patients")
+    inp = input("\nCHOICE ? ")
+    if(inp == '1'):
+      Aggre_1()
+    elif(inp == '2'):
+      Aggre_2()
+    return
+
+def Selec():
+    print("CHOOSE AN OPTION:(print the corresponding number)\n")
+    print("1.Select complete data tuples of Inpatient")
+    print("2.Select complete data tuples of Outpatient")
+    inp = input("\nCHOICE ? ")
+    if(inp == '1'):
+      Selec_1()
+    elif(inp == '2'):
+      Selec_2()
+    return
+
+def Proj():
+    print("CHOOSE AN OPTION:(print the corresponding number)\n")
+    print("1.Inpatients with bill greater than Rs 10,000")
+    print("2.Staff whose salary is greater than Rs 50,000")
+    inp = input("\nCHOICE ? ")
+    if(inp == '1'):
+      Proj_1()
+    elif(inp == '2'):
+      Proj_2()
+    return
+
+def Search():
+    print("CHOOSE AN OPTION:(print the corresponding number)\n")
+    print("1.Doctors whose name starts with the letter ‘A’")
+    print("2. Bill numbers ending with 00")
+    inp = input("\nCHOICE ? ")
+    if(inp == '1'):
+      Search_1()
+    elif(inp == '2'):
+      Search_2()
+    return
+
+def Analysis():
+    print("CHOOSE AN OPTION:(print the corresponding number)\n")
+    print("1.Inpatients whose last name starts with the ‘P’ whose bill is greater than the average bill cost.")
+    print("2. Name of the staff with staff id ending with 11 who made more than the average salary")
+    inp = input("\nCHOICE ? ")
+    if(inp == '1'):
+      Analysis_1()
+    elif(inp == '2'):
+      Analysis_2()
+    return
+    
+
+
+def Del_Staff():
+    return
+
+
+def Upd_Sal():
+    return
+def Upd_room():
+    return
+def Upd_stat_room():
+    return
+
+
 def Ins_new_Inp():
     return
 def Ins_new_Out():
@@ -36,19 +127,49 @@ def UpdOp():
 
     inp = input("\nCHOICE ? ")
     if(inp == '1'):
-     Ins_new_Inp()
+     Upd_Sal()
     elif(inp == '2'):
-     Ins_new_Out()
+     Upd_room()
     elif(inp == '3'):
-     Ins_new_Bill()
-    return
-    return
-def DelOp():
-    return
-def Misc():
+     Upd_stat_room()
     return
 
-    
+def DelOp():
+    print("Welcome!\n")
+    print("Choose which informaation do you want to delete\n")
+    print("CHOOSE AN OPTION:(print the corresponding number)\n")
+    print("1.Delete the staff that has resigned")
+
+    inp = input("\nCHOICE ? ")
+    if(inp == '1'):
+     Del_Staff()
+    return
+
+def Misc():
+
+    print("Welcome!\n")
+    print("Choose which type of retrivals you want to make\n")
+    print("CHOOSE AN OPTION:(print the corresponding number)\n")
+    print("1.Selection")
+    print("2.Projection")
+    print("3.Aggregate")
+    print("4.Search")
+    print("5.Analysis")
+
+    inp = input("\nCHOICE ? ")
+    if(inp == '1'):
+     Selec()
+    elif(inp == '2'):
+     Proj()
+    elif(inp == '3'):
+     Aggre()
+    elif(inp == '4'):
+     Search()
+    elif(inp == '5'):
+     Analysis()
+
+    return
+
 
 
 while(1):
@@ -99,6 +220,3 @@ while(1):
             
 
          break
-
-
-

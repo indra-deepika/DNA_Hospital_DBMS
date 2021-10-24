@@ -105,7 +105,35 @@ def Search_2():
     return
 
 def Analysis_1():
+    try:
+     global cur
+     query2="""SELECT
+  Inpatient.`First name`,
+  Inpatient.`Middle name`,
+  Inpatient.`Last name`
+FROM
+  Inpatient,
+  Billing,
+  (
+    SELECT
+      `Doctor Cost` + `Room Cost` AS Cost, `Patient Id`
+    FROM
+      Billing
+  ) AS Table1
+WHERE
+  Billing.`Patient Id` = Inpatient.`Patient Id` AND
+  Table1.`Patient Id` = Inpatient.`Patient Id`
+  AND Inpatient.`First name` Like 'S%' AND Cost > AVG(Cost)
+  GROUP BY Table1.`Patient Id`;
+ """
+     cur.execute(query2)
+     x= cur.fetchall()
+     View_Table(x)
+     con.commit()
+    except Exception as e:
+        print(e)
     return
+    
 def Analysis_2():
     return
 
@@ -172,10 +200,50 @@ def Del_Staff():
 
 
 def Upd_Sal():
-    return
+
+     
+        id = int(input("Enter the Staff Id for the Staff whose salary you want to update : "))
+        try:
+            salary = int(input("Enter the new salary: "))
+       
+
+            query = "UPDATE Staff SET Salary = %d WHERE `Staff Id` = %d;" % (
+            salary, id)
+            cur.execute(query)
+            con.commit()
+        except Exception as e:
+            print(e)
+
+   
+        return
+
 def Upd_room():
-    return
+
+        id1 = int(input("Enter the Floor number of the room whose cost needs to be updated : "))
+        id2 = int(input("Enter the Room number of the room whose cost needs to be updated : "))
+        try:
+            cost = int(input("Enter the new cost: "))
+    
+            query = "UPDATE Room SET `Cost per day` = %d WHERE `Room No` = %d AND `Floor No`=%d;" % (
+            cost, id2,id1)
+            cur.execute(query)
+            con.commit()
+        except Exception as e:
+            print(e)
+
+   
+        return
+    
 def Upd_stat_room():
+    try:
+        global cur 
+        query = "SELECT * FROM Room" 
+        cur.execute(query)
+        x= cur.fetchall()
+        View_Table(x)
+        con.commit()
+    except Exception as e:
+        print(e)
     return
 
 
@@ -269,7 +337,7 @@ while(1):
         con = pymysql.connect(host='localhost',
                               user=username,
                               password=password,
-                              db='changed1',
+                              db='hello',
                               cursorclass=pymysql.cursors.DictCursor)
     except Exception as e:
         print(e)
@@ -306,3 +374,5 @@ while(1):
                     break    
 
          break
+
+

@@ -1,23 +1,109 @@
 import subprocess as sp
+from typing import Counter
 import pymysql
 import pymysql.cursors
+
+
+def View_Table(rows):
+ a = []
+ a.append(list(rows[0].keys()))
+    
+ for row in rows:
+        b = []
+        for k in row.keys():
+            b.append(row[k])
+        a.append(b)
+ print(tabulate(a, tablefmt="psql", headers="firstrow"))
 
 def Aggre_1():
     return
 def Aggre_2():
     return
 def Selec_1():
+    try:
+     global cur
+     query="SELECT * FROM Inpatient"
+     cur.execute(query)
+     x= cur.fetchall()
+     View_Table(x)
+     con.commit()
+    except Exception as e:
+        print(e)
     return
 def Selec_2():
+    try:
+     global cur
+     query="SELECT * FROM Outpatient"
+     cur.execute(query)
+     x= cur.fetchall()
+     View_Table(x)
+     con.commit()
+    except Exception as e:
+        print(e)
     return
+
 def Proj_1():
-    return
+    try:
+        global cur
+        query=""" SELECT
+  Inpatient.`First name`,
+  Inpatient.`Middle name`,
+  Inpatient.`Last name`
+FROM
+  (
+    SELECT
+      *
+    FROM
+      Billing
+    WHERE
+      (`Room Cost` + `Doctor Cost`) > 1000
+  ) AS TABLE1,
+  Inpatient
+WHERE
+  TABLE1.`Patient Id` = Inpatient.`Patient Id`;"""
+        cur.execute(query)
+        x= cur.fetchall()
+        View_Table(x)
+        con.commit()
+    except Exception as e:
+        return
+
+    
 def Proj_2():
-    return
+      try:
+        global cur
+        query="""SELECT First_Name,Middle_Name,Last_Name FROM  Staff where Staff.Salary > 50000;"""
+        cur.execute(query)
+        x= cur.fetchall()
+        View_Table(x)
+        con.commit()
+      except Exception as e:
+        return
+       
 def Search_1():
+    try:
+     global cur
+     query="SELECT First_Name,Middle_Name,Last_Name FROM Staff AS S , Doctor AS D WHERE D.`Staff Id`= S.`Staff Id` AND First_Name Like 'A%'"
+     cur.execute(query)
+     x= cur.fetchall()
+     View_Table(x)
+     con.commit()
+    except Exception as e:
+        print(e)
     return
+
 def Search_2():
+    try:
+     global cur
+     query="SELECT `Bill Number` FROM Billing  WHERE `Bill Number`  Like '%00'"
+     cur.execute(query)
+     x= cur.fetchall()
+     View_Table(x)
+     con.commit()
+    except Exception as e:
+        print(e)
     return
+
 def Analysis_1():
     return
 def Analysis_2():
@@ -173,17 +259,17 @@ def Misc():
 
 
 while(1):
+    from tabulate import tabulate
     tmp = sp.call('clear', shell=True)
     username = input("Username: ")
     password = input("Password: ")
-    # username="tanvi"
-    # password="password"
+    
 
     try:
         con = pymysql.connect(host='localhost',
                               user=username,
                               password=password,
-                              db='hfin',
+                              db='changed1',
                               cursorclass=pymysql.cursors.DictCursor)
     except Exception as e:
         print(e)
@@ -191,11 +277,12 @@ while(1):
         print("Connection Refused: Either username or password is incorrect or user doesn't have access to database")
         tmp = input("Enter any key to CONTINUE>")
         continue
-
+   
     with con:
          print("Established!\n")
+         cur = con.cursor()
          while(1):
-            tmp = sp.call('clear', shell=True)
+            #tmp = sp.call('clear',shell=True)
             #refreshDatabase()
             print("CHOOSE AN OPTION:(print the corresponding number)\n")
             print("1.Insert Options")
@@ -216,7 +303,6 @@ while(1):
             elif(inp == '5'):
                     exitflag = 1
                     print("Bye")
-                    break
-            
+                    break    
 
          break
